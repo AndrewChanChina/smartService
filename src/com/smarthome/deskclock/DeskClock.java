@@ -99,7 +99,7 @@ public class DeskClock extends Activity {
     private static final String LOG_TAG = "DeskClock";
 
     // Alarm action for midnight (so we can update the date display).
-    private static final String ACTION_MIDNIGHT = "com.android.deskclock.MIDNIGHT";
+    private static final String ACTION_MIDNIGHT = "com.smarthome.deskclock.MIDNIGHT";
 
     // Interval between forced polls of the weather widget.
     private final long QUERY_WEATHER_DELAY = 60 * 60 * 1000; // 1 hr

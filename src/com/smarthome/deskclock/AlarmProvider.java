@@ -39,8 +39,8 @@ public class AlarmProvider extends ContentProvider {
             UriMatcher.NO_MATCH);
 
     static {
-        sURLMatcher.addURI("com.android.deskclock", "alarm", ALARMS);
-        sURLMatcher.addURI("com.android.deskclock", "alarm/#", ALARMS_ID);
+        sURLMatcher.addURI("com.smarthome.deskclock", "alarm", ALARMS);
+        sURLMatcher.addURI("com.smarthome.deskclock", "alarm/#", ALARMS_ID);
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {

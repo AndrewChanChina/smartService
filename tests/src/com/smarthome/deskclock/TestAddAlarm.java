@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.tests;
+package com.smarthome.deskclock.tests;
 
 import android.app.Activity;
 import android.content.Intent;

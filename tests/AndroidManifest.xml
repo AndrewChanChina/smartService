@@ -21,7 +21,7 @@
     <application>
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="com.android.deskclock.TestAddAlarm" android:label="Test Adding Alarm">
+        <activity android:name="com.smarthome.deskclock.TestAddAlarm" android:label="Test Adding Alarm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -30,8 +30,8 @@
         </activity>
     </application>
 
-    <instrumentation android:name="com.android.deskclock.DeskClockLaunchPerformance"
-        android:targetPackage="com.android.deskclock"
+    <instrumentation android:name="com.smarthome.deskclock.DeskClockLaunchPerformance"
+        android:targetPackage="com.smarthome.deskclock"
         android:label="DeskClock Launch Performance">
     </instrumentation>
 
