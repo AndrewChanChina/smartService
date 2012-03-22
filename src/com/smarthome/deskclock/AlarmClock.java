@@ -47,6 +47,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.smarthome.alarmclock.R;
+import com.smarthome.deskclock.online.AlarmXmlParse;
+import com.smarthome.deskclock.online.HttpPostDataUtil;
 
 import java.util.Calendar;
 
@@ -75,6 +77,9 @@ public class AlarmClock extends Activity implements OnItemClickListener {
             SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
                     alarm.daysOfWeek);
         }
+        alarm.operation = AlarmXmlParse.Operation.s_update;
+        alarm.enabled = enabled;
+        HttpPostDataUtil.postOperationAlarm(this, alarm);
     }
 
     private class AlarmTimeAdapter extends CursorAdapter {
@@ -170,6 +175,10 @@ public class AlarmClock extends Activity implements OnItemClickListener {
                                     public void onClick(DialogInterface d,
                                             int w) {
                                         Alarms.deleteAlarm(AlarmClock.this, id);
+                                        Alarm alarm = new Alarm();
+                                        alarm.id = id;
+                                        alarm.operation = AlarmXmlParse.Operation.s_del;                                        
+                                        HttpPostDataUtil.postOperationAlarm(AlarmClock.this, alarm);
                                     }
                                 })
                         .setNegativeButton(android.R.string.cancel, null)
@@ -185,6 +194,9 @@ public class AlarmClock extends Activity implements OnItemClickListener {
                     SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
                             alarm.daysOfWeek);
                 }
+                alarm.operation = AlarmXmlParse.Operation.s_update;
+                alarm.enabled = !alarm.enabled;
+                HttpPostDataUtil.postOperationAlarm(this, alarm);
                 return true;
 
             case R.id.edit_alarm:

@@ -27,6 +27,8 @@ import android.content.BroadcastReceiver;
 import android.database.Cursor;
 import android.os.Parcel;
 import com.smarthome.alarmclock.R;
+import com.smarthome.deskclock.online.AlarmXmlParse;
+import com.smarthome.deskclock.online.HttpPostDataUtil;
 
 /**
  * Glue class: connects AlarmAlert IntentReceiver to AlarmAlert
@@ -150,6 +152,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // correct notification.
         NotificationManager nm = getNotificationManager(context);
         nm.notify(alarm.id, n);
+        alarm.operation = AlarmXmlParse.Operation.s_ring;
+        HttpPostDataUtil.postOperationAlarm(context, alarm);
     }
 
     private NotificationManager getNotificationManager(Context context) {

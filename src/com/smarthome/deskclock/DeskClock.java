@@ -77,7 +77,11 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.smarthome.alarmclock.R;
+import com.smarthome.deskclock.online.HttpPostDataUtil;
+import com.smarthome.deskclock.online.PostResultService;
+import com.smarthome.deskclock.online.PushNotificationUtil;
 
 import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
@@ -865,7 +869,15 @@ public class DeskClock extends Activity {
             Log.w(LOG_TAG, "Can't find "+GENIE_PACKAGE_ID+". Weather forecast will not be available.");
         }
 
+        
         initViews();
+        
+       
+        /*String s = HttpPostDataUtil.getListAll(this);
+        Log.i(LOG_TAG, s);*/        
+        
+        //HttpPostDataFormat.addAlarm(this,"<root><item><_id>1</_id><hour>8</hour><minutes>30</minutes><daysofweek>31</daysofweek><alarmtime>0</alarmtime><enabled>0</enabled><vibrate>1</vibrate><alert>content://settings/system/alarm_alert</alert><operation>delete</operation><music>null</music></item><item><_id>2</_id><hour>9</hour><minutes>32</minutes><daysofweek>96</daysofweek><alarmtime>0</alarmtime><enabled>0</enabled><vibrate>1</vibrate><alert>content://settings/system/alarm_alert</alert><operation>update</operation><music>null</music></item></root>");
+        
     }
 
 }

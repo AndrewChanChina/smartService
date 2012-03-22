@@ -45,7 +45,7 @@ public class AlarmProvider extends ContentProvider {
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "alarms.db";
-        private static final int DATABASE_VERSION = 5;
+        private static final int DATABASE_VERSION = 6;
 
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -62,14 +62,16 @@ public class AlarmProvider extends ContentProvider {
                        "enabled INTEGER, " +
                        "vibrate INTEGER, " +
                        "message TEXT, " +
-                       "alert TEXT);");
+                       "alert TEXT, " +
+                       "operation TEXT, " +
+                       "music TEXT);");
 
             // insert default alarms
             String insertMe = "INSERT INTO alarms " +
-                    "(hour, minutes, daysofweek, alarmtime, enabled, vibrate, message, alert) " +
+                    "(hour, minutes, daysofweek, alarmtime, enabled, vibrate, message, alert, operation, music) " +
                     "VALUES ";
-            db.execSQL(insertMe + "(8, 30, 31, 0, 0, 1, '', '');");
-            db.execSQL(insertMe + "(9, 00, 96, 0, 0, 1, '', '');");
+            db.execSQL(insertMe + "(8, 30, 31, 0, 0, 1, '', '', '', '');");
+            db.execSQL(insertMe + "(9, 00, 96, 0, 0, 1, '', '', '55', '5');");
         }
 
         @Override

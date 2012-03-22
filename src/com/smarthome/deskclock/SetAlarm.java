@@ -41,6 +41,8 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import com.smarthome.alarmclock.R;
+import com.smarthome.deskclock.online.AlarmXmlParse;
+import com.smarthome.deskclock.online.HttpPostDataUtil;
 
 /**
  * Manages each alarm
@@ -285,10 +287,12 @@ public class SetAlarm extends PreferenceActivity
             // addAlarm populates the alarm with the new id. Update mId so that
             // changes to other preferences update the new alarm.
             mId = alarm.id;
+            alarm.operation = AlarmXmlParse.Operation.s_add;
         } else {
             time = Alarms.setAlarm(this, alarm);
+            alarm.operation = AlarmXmlParse.Operation.s_update;
         }
-        // TODO send 
+        HttpPostDataUtil.postOperationAlarm(this, alarm);
         return time;
     }
 
@@ -301,6 +305,10 @@ public class SetAlarm extends PreferenceActivity
                             public void onClick(DialogInterface d, int w) {
                                 Alarms.deleteAlarm(SetAlarm.this, mId);
                                 // TODO DELETE
+                                Alarm a = new Alarm();
+                                a.id = mId;
+                                a.operation = AlarmXmlParse.Operation.s_del;                                                               
+                                HttpPostDataUtil.postOperationAlarm(SetAlarm.this, a);
                                 finish();
                             }
                         })

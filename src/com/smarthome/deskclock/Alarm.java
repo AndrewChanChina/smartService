@@ -123,6 +123,10 @@ public final class Alarm implements Parcelable {
          * <P>Type: STRING</P>
          */
         public static final String ALERT = "alert";
+        
+        public static final String OPERATION = "operation";
+        
+        public static final String MUSIC = "music";
 
         /**
          * The default sort order for this table
@@ -135,7 +139,7 @@ public final class Alarm implements Parcelable {
 
         static final String[] ALARM_QUERY_COLUMNS = {
             _ID, HOUR, MINUTES, DAYS_OF_WEEK, ALARM_TIME,
-            ENABLED, VIBRATE, MESSAGE, ALERT };
+            ENABLED, VIBRATE, MESSAGE, ALERT, OPERATION, MUSIC };
 
         /**
          * These save calls to cursor.getColumnIndexOrThrow()
@@ -150,6 +154,8 @@ public final class Alarm implements Parcelable {
         public static final int ALARM_VIBRATE_INDEX = 6;
         public static final int ALARM_MESSAGE_INDEX = 7;
         public static final int ALARM_ALERT_INDEX = 8;
+        public static final int ALARM_OP_INDEX = 9;
+        public static final int ALARM_MUSIC_INDEX = 10;
     }
     //////////////////////////////
     // End column definitions
@@ -166,6 +172,8 @@ public final class Alarm implements Parcelable {
     public String     label;
     public Uri        alert;
     public boolean    silent;
+    public String     operation;
+    public String     musicPath;
 
     public Alarm(Cursor c) {
         id = c.getInt(Columns.ALARM_ID_INDEX);
@@ -194,6 +202,8 @@ public final class Alarm implements Parcelable {
                         RingtoneManager.TYPE_ALARM);
             }
         }
+        operation = c.getString(Columns.ALARM_OP_INDEX);
+        musicPath = c.getString(Columns.ALARM_MUSIC_INDEX);
     }
 
     public Alarm(Parcel p) {
@@ -239,7 +249,7 @@ public final class Alarm implements Parcelable {
      * 0x20: Saturday
      * 0x40: Sunday
      */
-    static final class DaysOfWeek {
+    public static final class DaysOfWeek {
 
         private static int[] DAY_MAP = new int[] {
             Calendar.MONDAY,
@@ -254,7 +264,7 @@ public final class Alarm implements Parcelable {
         // Bitmask of all repeating days
         private int mDays;
 
-        DaysOfWeek(int days) {
+        public DaysOfWeek(int days) {
             mDays = days;
         }
 
