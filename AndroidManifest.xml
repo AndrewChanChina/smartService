@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application android:label="@string/app_label"
                  android:icon="@drawable/ic_launcher_alarmclock">
@@ -160,8 +161,39 @@
         		<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
         	</intent-filter>
         </receiver>
-        
         <service android:name="com.smarthome.deskclock.online.PostResultService"></service>
-    </application>
+        
+        <!-- xuewei add -->
+        <receiver android:name="com.smarthome.installoruninstall.InstallAndUninstallListener">
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<action android:name="android.intent.action.PACKAGE_REMOVED" />
+				<data android:scheme="package" />
+			</intent-filter>
+		</receiver>
+		<service android:name="com.smarthome.installoruninstall.PostApkInfoService"></service>
+		<service android:name="com.smarthome.installoruninstall.ParseReceivedMessageService"></service>
+		<receiver android:name="com.smarthome.installoruninstall.DownCompleteReceiver">
+         <intent-filter>
+		        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+		    </intent-filter>
+		</receiver>
+		<!--<activity
+            android:name="com.smarthome.installoruninstall.TestActivity" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.smarthome.installoruninstall.ServerCommandReceiver">
+         <intent-filter>
+		        <action android:name="com.openims.pushService.POST_APK_INFO" />
+		        <action android:name="com.openims.pushService.BATCH_INSTALL_APK" />
+		        <action android:name="com.openims.pushService.BATCH_UNINSTALL_APK"/>
+		    </intent-filter>
+		</receiver>
+		-->
+		   
+    </application>-->
 </manifest>
 

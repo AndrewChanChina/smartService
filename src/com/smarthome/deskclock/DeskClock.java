@@ -860,6 +860,14 @@ public class DeskClock extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        SharedPreferences sp = this.getSharedPreferences(
+				PushNotificationUtil.PREFE_NAME, 0);
+		String id = sp.getString(PushNotificationUtil.ID, "");
+		Log.i("DeskClock","---ID=" + id);
+		if (id == null || id.isEmpty()) {
+			PushNotificationUtil.regPushService(this, true);
+		}
+        
         mRNG = new Random();
 
         try {

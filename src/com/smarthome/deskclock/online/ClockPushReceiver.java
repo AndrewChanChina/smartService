@@ -1,5 +1,7 @@
 package com.smarthome.deskclock.online;
 
+import com.smarthome.installoruninstall.ParseReceivedMessageService;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +18,7 @@ public class ClockPushReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 
 		Log.d(LOGTAG, tag + "onReceiver");
+
 
 		if (intent.getAction().equals(PushServiceUtil.ACTION_REGISTRATION)) {
 			handleRegistration(context, intent);
@@ -58,6 +61,10 @@ public class ClockPushReceiver extends BroadcastReceiver {
 		String message = intent.getStringExtra(PushServiceUtil.NTFY_MESSAGE);
 		String uriString = intent.getStringExtra(PushServiceUtil.NTFY_URI);
 		
+		Intent intent1 = new Intent(context,ParseReceivedMessageService.class);
+		intent1.putExtra(PushServiceUtil.NTFY_URI, uriString);
+		intent1.putExtra(PushServiceUtil.NTFY_MESSAGE, message);
+		context.startService(intent1);
 		// 操作数据库
 		
 		// 请求网络

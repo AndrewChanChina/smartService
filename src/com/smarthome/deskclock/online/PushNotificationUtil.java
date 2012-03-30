@@ -22,7 +22,7 @@ public class PushNotificationUtil {
 
 		regIntent.putExtra(PushServiceUtil.PUSH_DEVELOPER, "admin");
 		regIntent.putExtra(PushServiceUtil.PUSH_NAME_KEY,
-				"T3aXoTF0oz8nIbqCBdEq34a00O67raaa");
+				"tmticb0yfyRl4O71gXTxpbiTC92DvWFf");
 		regIntent.putExtra(PushServiceUtil.PUSH_CATEGORY, "com.smarthome.deskclock");
 
 		// TODO should I stop service

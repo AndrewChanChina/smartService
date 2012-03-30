@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+<!--hotel>file:///android_asset/3.0.4/examples/02-jquery.html</hotel--><!-- 设置酒店介绍 -->
+<info>file:///android_asset/3.0.4/examples/02-jquery.html</info><!-- 设置周边信息 -->
+<eating>http://www.baidu.com</eating><!-- 设置餐饮服务 -->
+<video_movie>http://mp3.baidu.com</video_movie><!-- 设置影音视听 -->
+<hotel_inf>http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=hotelinfo</hotel_inf><!-- 设置服务器关于酒店信息，logo -->
+<room_inf>http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=roominfo</room_inf><!-- 设置房间的欢迎词 -->
+<apk_ver_url>http://192.168.0.192:8080/apkVersion.xml</apk_ver_url><!-- apk版本文件url -->
+<ad_update_url>http://192.168.0.192:8080/adUpdate.xml</ad_update_url><!-- 广告更新文件url配置 -->
+<check_ad_update_inter>2</check_ad_update_inter><!-- 客服端检查服务端广告更新的时间间隔，以“分钟”为单位 -->
+<ad_refresh_time>10</ad_refresh_time><!-- 客服端界面广告刷新时间配置,以“秒”为单位 -->
+<record_install_apk>0</record_install_apk><!-- 是否记录安装的apk写入自定义数据库 ，值为0或1-->
+
+<!-- post apk information -->
+<apk_post_url></apk_post_url>
+</root>
