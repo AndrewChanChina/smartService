@@ -14,5 +14,6 @@
 <record_install_apk>0</record_install_apk><!-- 是否记录安装的apk写入自定义数据库 ，值为0或1-->
 
 <!-- post apk information -->
-<apk_post_url></apk_post_url>
+<apk_post_url>http://192.168.0.195:8080/pushcmsserver/apk_webservice.do?</apk_post_url>
+<id_post_url>http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=pushServiceInfo</id_post_url>
 </root>

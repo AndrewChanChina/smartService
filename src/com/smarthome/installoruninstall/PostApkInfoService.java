@@ -29,8 +29,8 @@ import android.util.Log;
 
 public class PostApkInfoService extends IntentService{
 	private static final String tag = PostApkInfoService.class.getSimpleName();
-	private static String SERVER_APK_URL = "http://192.168.0.195:8080/pushcmsserver/apk_webservice.do";
-	private static String SERVER_PUSHID_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do";
+	private static String SERVER_APK_URL = "http://192.168.0.195:8080/pushcmsserver/apk_webservice.do?";
+	private static String SERVER_PUSHID_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=pushServiceInfo";
     
 	public PostApkInfoService() {
 		super("PostApkInfoService");
