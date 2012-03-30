@@ -34,7 +34,7 @@ public class DownCompleteReceiver extends BroadcastReceiver {
 						 String localUri = c.getString(indexLocal);
 						 String filePath = localUri.substring("file://".length());
 						 Log.i("DownCompleteReceiver","---apk ÎÄ¼þÂ·¾¶ : " + filePath);
-						 Intent intentInstall = new Intent(Constant.ACTION_PACKAGEINSTALLER_INSTALL);
+						 Intent intentInstall = new Intent(PushApkServiceUtil.ACTION_PACKAGEINSTALLER_INSTALL);
 						 intentInstall.putExtra("apkPath", filePath);
 				         context.sendBroadcast(intentInstall);
 					 }

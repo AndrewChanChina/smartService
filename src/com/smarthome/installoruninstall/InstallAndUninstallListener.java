@@ -31,7 +31,7 @@ public class InstallAndUninstallListener extends BroadcastReceiver {
 				Log.i("InstallAndUninstallListener", "pack_add_appname="
 						+ appName);
 				Intent intent1 = new Intent(context, PostApkInfoService.class);
-				intent1.putExtra(Constant.OPERATION, "install");
+				intent1.putExtra(PushApkServiceUtil.OPERATION, "install");
 				intent1.putExtra(AppInfo.APP_NAME, appName);
 				intent1.putExtra(AppInfo.APP_PACKAGE_NAME, packageName);
 				context.startService(intent1);
@@ -58,7 +58,7 @@ public class InstallAndUninstallListener extends BroadcastReceiver {
 			Log.i("InstallAndUninstallListener", "pack_remove_appname="
 					+ appName);
 			Intent intent1 = new Intent(context, PostApkInfoService.class);
-			intent1.putExtra(Constant.OPERATION, "uninstall");
+			intent1.putExtra(PushApkServiceUtil.OPERATION, "uninstall");
 			intent1.putExtra(AppInfo.APP_NAME, appName);
 			intent1.putExtra(AppInfo.APP_PACKAGE_NAME, packageName);
 			context.startService(intent1);

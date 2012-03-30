@@ -1,12 +1,15 @@
-package com.smarthome.deskclock.online;
+package com.smarthome.installoruninstall;
+
+import com.smarthome.deskclock.online.PostResultService;
+import com.smarthome.deskclock.online.PushServiceUtil;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class PushNotificationUtil {
+public class PushApkNotificationUtil {
 	
-	public static String PREFE_NAME = "record";
+	public static String PREFE_NAME = "apk_record";
 	public static String ID = "id";
 	
 	public static void regPushService(Context context,boolean bReg) {
@@ -22,12 +25,12 @@ public class PushNotificationUtil {
 
 		regIntent.putExtra(PushServiceUtil.PUSH_DEVELOPER, "admin");
 		regIntent.putExtra(PushServiceUtil.PUSH_NAME_KEY,
-				"GVTO6mcPcNGm3556786E8KL48M9L87rr");
+				"tmticb0yfyRl4O71gXTxpbiTC92DvWFf");
 		regIntent.putExtra(PushServiceUtil.PUSH_CATEGORY, "com.smarthome.deskclock");
 
 		// TODO should I stop service
 		context.startService(regIntent);
-		Log.e(PostResultService.LOG_TAG, "start register alarm clock service"); 
+		Log.e(PostResultService.LOG_TAG, "start register apk service"); 
 	}
 
 }

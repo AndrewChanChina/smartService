@@ -46,9 +46,9 @@ public class HttpPostApkInfo {
 			return false;
 		}
 		for (AppInfo a : list) {
-			if(a.getOperation().equals(Constant.INSTALL_PACKAGE)){
+			if(a.getOperation().equals(PushApkServiceUtil.INSTALL_PACKAGE)){
 				
-			}else if(a.getOperation().equals(Constant.UNINSTALL_PACKAGE)){
+			}else if(a.getOperation().equals(PushApkServiceUtil.UNINSTALL_PACKAGE)){
 				
 			}
 		}

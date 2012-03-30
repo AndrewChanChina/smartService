@@ -45,10 +45,10 @@ public class ParseReceivedMessageService extends IntentService {
 						AppInfo app = list.get(i);
 						Log.i("ParseReceivedMessageService", "---apk应用程序名"
 								+ app.getAppName());
-						if (app.getOperation().equals(Constant.INSTALL_PACKAGE)) {
+						if (app.getOperation().equals(PushApkServiceUtil.INSTALL_PACKAGE)) {
 							appInstallList.add(app);
 						} else if (app.getOperation().equals(
-								Constant.UNINSTALL_PACKAGE)) {
+								PushApkServiceUtil.UNINSTALL_PACKAGE)) {
 							appUninstallList.add(app);
 						}
 					}
@@ -60,7 +60,7 @@ public class ParseReceivedMessageService extends IntentService {
 					uninstallArray[i] = appUninstallList.get(i).getPackageName();
 				}
 				Intent uninstallIntent = new Intent(
-						Constant.ACTION_PACKAGEINSTALLER_UNINSTALL);
+						PushApkServiceUtil.ACTION_PACKAGEINSTALLER_UNINSTALL);
 				uninstallIntent.putExtra("appList",
 						uninstallArray);
 				this.sendBroadcast(uninstallIntent);
@@ -80,10 +80,10 @@ public class ParseReceivedMessageService extends IntentService {
 					download(appInstallList.get(i).getApkUrl());
 				}
 			}
-		} else if (cmd.equals("list_apk")) {
+		} else if (cmd.equals("list")) {
 			// 上传本地apk信息
 			Intent intent1 = new Intent(this, PostApkInfoService.class);
-			intent1.putExtra(Constant.OPERATION_POST_APK_INFO, "post");
+			intent1.putExtra(PushApkServiceUtil.OPERATION, "post");
 			startService(intent1);
 		}
 

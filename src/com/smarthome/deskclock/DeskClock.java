@@ -82,6 +82,7 @@ import com.smarthome.alarmclock.R;
 import com.smarthome.deskclock.online.HttpPostDataUtil;
 import com.smarthome.deskclock.online.PostResultService;
 import com.smarthome.deskclock.online.PushNotificationUtil;
+import com.smarthome.installoruninstall.PushApkNotificationUtil;
 
 import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
@@ -860,12 +861,22 @@ public class DeskClock extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        //×¢²áÄÖÖÓ·þÎñ
         SharedPreferences sp = this.getSharedPreferences(
 				PushNotificationUtil.PREFE_NAME, 0);
 		String id = sp.getString(PushNotificationUtil.ID, "");
-		Log.i("DeskClock","---ID=" + id);
+		Log.i("DeskClock","---CLOCK_ID=" + id);
 		if (id == null || id.isEmpty()) {
 			PushNotificationUtil.regPushService(this, true);
+		}
+		
+		//×¢²áapkservice
+		SharedPreferences preference = this.getSharedPreferences(
+				PushApkNotificationUtil.PREFE_NAME, 0);
+		String apkId = sp.getString(PushApkNotificationUtil.ID, "");
+		Log.i("DeskClock","---APK_ID=" + apkId);
+		if (id == null || id.isEmpty()) {
+			PushApkNotificationUtil.regPushService(this, true);
 		}
         
         mRNG = new Random();

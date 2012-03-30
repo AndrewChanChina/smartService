@@ -18,6 +18,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import com.smarthome.deskclock.online.DeviceFun;
 import com.smarthome.deskclock.online.MyException;
+import com.smarthome.deskclock.online.PushServiceUtil;
 import com.smarthome.until.GobalFinalData;
 import com.smarthome.until.XmlPreference;
 
@@ -28,10 +29,8 @@ import android.util.Log;
 
 public class PostApkInfoService extends IntentService{
 	private static final String tag = PostApkInfoService.class.getSimpleName();
-	private static String SERVER_APK_URL = "http://192.168.0.195:8080/pushcmsserver/apk_webservice.do?";
-    public static final String APPINFO = "data";
-    public static final String ROOMNUM = "roomNum";
-    public static final String TYPE = "type";
+	private static String SERVER_APK_URL = "http://192.168.0.195:8080/pushcmsserver/apk_webservice.do";
+	private static String SERVER_PUSHID_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do";
     
 	public PostApkInfoService() {
 		super("PostApkInfoService");
@@ -49,24 +48,27 @@ public class PostApkInfoService extends IntentService{
 		if (value != null && value.isEmpty() == false) {
 			SERVER_APK_URL = value;
 		}
+		value = xmlPreference.getKeyValue("id_post_url");
+		if (value != null && value.isEmpty() == false) {
+			SERVER_PUSHID_URL = value;
+		}
 	}
 	
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
-		String operation = intent.getStringExtra(Constant.OPERATION);
+		String operation = intent.getStringExtra(PushApkServiceUtil.OPERATION);
 		if(operation.equals("post")){
 			List<AppInfo> list = HttpPostApkInfo.getInstalledApps(this);
 			startPost(list);
-		}
-		else if(operation.equals("install")){
+		}else if(operation.equals("install")){
 			List<AppInfo> list = new ArrayList<AppInfo>();
 			String appName = intent.getStringExtra(AppInfo.APP_NAME);
 			String pkgName = intent.getStringExtra(AppInfo.APP_PACKAGE_NAME);
 			AppInfo appInfo = new AppInfo();
 			appInfo.setAppName(appName);
 			appInfo.setPackageName(pkgName);
-			appInfo.setOperation(Constant.INSTALL_PACKAGE);
+			appInfo.setOperation(PushApkServiceUtil.INSTALL_PACKAGE);
 			list.add(appInfo);
 			startPost(list);
 			
@@ -77,9 +79,22 @@ public class PostApkInfoService extends IntentService{
 			AppInfo appInfo = new AppInfo();
 			appInfo.setAppName(appName);
 			appInfo.setPackageName(pkgName);
-			appInfo.setOperation(Constant.UNINSTALL_PACKAGE);
+			appInfo.setOperation(PushApkServiceUtil.UNINSTALL_PACKAGE);
 			list.add(appInfo);
 			startPost(list);
+		}else if(operation.equals("postId")){
+			String id = intent.getStringExtra(PushServiceUtil.PUSH_ID);
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
+			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSHID,id));
+			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSH_SERVICE_ID,"GVTO6mcPcNGm3556786E8KL48M9L87rr"));
+			try {
+				//httpPostApknfo(SERVER_APK_URL, nvps);
+				httpPostApknfo(SERVER_PUSHID_URL, nvps);
+			} catch (MyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -143,9 +158,9 @@ public class PostApkInfoService extends IntentService{
 		String appInfoXml = HttpPostApkInfo.getAllApkInfo(list);
 		Log.i(tag,"---上传apk信息为：" + appInfoXml);
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair(ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
-		nvps.add(new BasicNameValuePair(APPINFO,appInfoXml));
-		nvps.add(new BasicNameValuePair(TYPE,"list"));
+		nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
+		nvps.add(new BasicNameValuePair(PushApkServiceUtil.APPINFO,appInfoXml));
+		nvps.add(new BasicNameValuePair(PushApkServiceUtil.TYPE,"list"));
 		try {
 			httpPostApknfo(SERVER_APK_URL, nvps);
 		} catch (MyException e) {
