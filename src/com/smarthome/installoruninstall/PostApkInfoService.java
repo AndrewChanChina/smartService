@@ -87,7 +87,7 @@ public class PostApkInfoService extends IntentService{
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
 			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSHID,id));
-			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSH_SERVICE_ID,"GVTO6mcPcNGm3556786E8KL48M9L87rr"));
+			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSH_SERVICE_ID,"tmticb0yfyRl4O71gXTxpbiTC92DvWFf"));
 			try {
 				//httpPostApknfo(SERVER_APK_URL, nvps);
 				httpPostApknfo(SERVER_PUSHID_URL, nvps);

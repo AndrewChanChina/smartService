@@ -6,6 +6,7 @@ import android.graphics.ColorMatrixColorFilter;
 
 public class PushServiceUtil{
 	public static final String PACKAGE_NAME = "com.smit.EasyLauncher";
+	public static final String OPERATION = "operation";
 	
     // the action for service
     //public final static String ACTION_IMSERVICE = "com.openims.service.IMService";

@@ -1,6 +1,8 @@
 package com.smarthome.deskclock.online;
 
 import com.smarthome.installoruninstall.ParseReceivedMessageService;
+import com.smarthome.installoruninstall.PostApkInfoService;
+import com.smarthome.installoruninstall.PushApkServiceUtil;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -64,7 +66,6 @@ public class ClockPushReceiver extends BroadcastReceiver {
 		// 操作数据库
 		
 		// 请求网络
-		
 		
 	}
 
