@@ -1,9 +1,5 @@
 package com.smarthome.deskclock.online;
 
-import com.smarthome.installoruninstall.ParseReceivedMessageService;
-import com.smarthome.installoruninstall.PostApkInfoService;
-import com.smarthome.installoruninstall.PushApkServiceUtil;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,6 +42,14 @@ public class ClockPushReceiver extends BroadcastReceiver {
 		SharedPreferences sp = context.getSharedPreferences(
 				PushNotificationUtil.PREFE_NAME, 0);
 		sp.edit().putString(PushNotificationUtil.ID, pushId).commit();
+		
+		if(pushId!=null && !pushId.isEmpty()){
+        	//上传id给服务器
+        	Intent intent1 = new Intent(context, PostResultService.class);
+			intent1.putExtra(PushServiceUtil.OPERATION, "postId");
+			intent1.putExtra(PushServiceUtil.PUSH_ID,pushId);
+			context.startService(intent1);
+        }
 
 	}
 
@@ -66,7 +70,10 @@ public class ClockPushReceiver extends BroadcastReceiver {
 		// 操作数据库
 		
 		// 请求网络
-		
+		Intent intent1 = new Intent(context,ParseClockMessageService.class);
+		intent1.putExtra(PushServiceUtil.NTFY_URI, uriString);
+		intent1.putExtra(PushServiceUtil.NTFY_MESSAGE, message);
+		context.startService(intent1);
 	}
 
 	/**

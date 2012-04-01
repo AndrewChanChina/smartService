@@ -1,6 +1,5 @@
 package com.smarthome.installoruninstall;
 
-import com.smarthome.deskclock.online.PushNotificationUtil;
 import com.smarthome.deskclock.online.PushServiceUtil;
 import com.smarthome.installoruninstall.ParseReceivedMessageService;
 import android.content.BroadcastReceiver;
@@ -20,11 +19,11 @@ public class ApkPushReceiver extends BroadcastReceiver {
 
 		Log.d(LOGTAG, tag + "onReceiver");
 
-		if (intent.getAction().equals(PushApkServiceUtil.ACTION_REGISTRATION)) {
+		if (intent.getAction().equals(PushServiceUtil.ACTION_REGISTRATION)) {
 			handleRegistration(context, intent);
-		} else if (intent.getAction().equals(PushApkServiceUtil.ACTION_RECEIVE)) {
+		} else if (intent.getAction().equals(PushServiceUtil.ACTION_RECEIVE)) {
 			handleMessage(context, intent);
-		} else if (intent.getAction().equals(PushApkServiceUtil.ACTION_STATUS)) {
+		} else if (intent.getAction().equals(PushServiceUtil.ACTION_STATUS)) {
 			handleStatus(context, intent);
 		} else {
 			Log.e(LOGTAG, tag + "receiver error type");

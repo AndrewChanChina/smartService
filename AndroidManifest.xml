@@ -162,6 +162,13 @@
         	</intent-filter>
         </receiver>
         <service android:name="com.smarthome.deskclock.online.PostResultService"></service>
+        <service android:name="com.smarthome.deskclock.online.ParseClockMessageService"></service>
+        <service android:name="com.smarthome.deskclock.online.SetRingtoneService"></service>
+        <receiver android:name="com.smarthome.deskclock.online.MusicDownCompleteReceiver">
+         <intent-filter>
+		        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+		    </intent-filter>
+		</receiver>
         
         <!-- xuewei add -->
         <receiver android:name="com.smarthome.installoruninstall.InstallAndUninstallListener">
@@ -182,12 +189,11 @@
 		    </intent-filter>
 		</receiver>
 		
-		<receiver android:name="com.smarthome.deskclock.online.ClockPushReceiver">
+		<receiver android:name="com.smarthome.installoruninstall.ApkPushReceiver">
             <intent-filter>
-                <action android:name="com.openims.pushApkService.REGISTRATION" />
-                <action android:name="com.openims.pushApkService.RECEIVE" />
-                <action android:name="com.openims.pushApkService.CONNECT_STATUS" />
-                <category android:name="com.smarthome.deskclock"/>
+                <action android:name="com.openims.pushService.REGISTRATION" />
+                <action android:name="com.openims.pushService.RECEIVE" />
+                <category android:name="com.smarthome.installoruninstall"/>
             </intent-filter>
         </receiver>
 		<!--<activity

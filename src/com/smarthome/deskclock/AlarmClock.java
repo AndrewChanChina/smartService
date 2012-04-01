@@ -82,7 +82,7 @@ public class AlarmClock extends Activity implements OnItemClickListener {
 		}
 		alarm.operation = AlarmXmlParse.Operation.s_update;
 		alarm.enabled = enabled;
-		HttpPostDataUtil.postOperationAlarm(this, alarm);
+		HttpPostDataUtil.postOperationAlarm(AlarmClock.this, alarm);
 	}
 
 	private class AlarmTimeAdapter extends CursorAdapter {
@@ -198,7 +198,7 @@ public class AlarmClock extends Activity implements OnItemClickListener {
 			}
 			alarm.operation = AlarmXmlParse.Operation.s_update;
 			alarm.enabled = !alarm.enabled;
-			HttpPostDataUtil.postOperationAlarm(this, alarm);
+			HttpPostDataUtil.postOperationAlarm(AlarmClock.this, alarm);;
 			return true;
 
 		case R.id.edit_alarm:

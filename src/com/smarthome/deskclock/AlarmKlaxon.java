@@ -16,6 +16,8 @@
 
 package com.smarthome.deskclock;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +28,6 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -43,7 +44,7 @@ public class AlarmKlaxon extends Service {
 
     /** Play alarm up to 10 minutes before silencing */
     private static final int ALARM_TIMEOUT_SECONDS = 10 * 60;
-
+    private static final long CHECK_INTERVAL = 7 * AlarmManager.INTERVAL_DAY;
     private static final long[] sVibratePattern = new long[] { 500, 500 };
 
     private boolean mPlaying = false;
@@ -53,7 +54,8 @@ public class AlarmKlaxon extends Service {
     private long mStartTime;
     private TelephonyManager mTelephonyManager;
     private int mInitialCallState;
-
+    private AlarmManager mAlarmManager;
+    private PendingIntent pendingIntent;
     // Internal messages
     private static final int KILLER = 1000;
     private Handler mHandler = new Handler() {
@@ -94,6 +96,7 @@ public class AlarmKlaxon extends Service {
         mTelephonyManager.listen(
                 mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
+        mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
     @Override
@@ -102,6 +105,7 @@ public class AlarmKlaxon extends Service {
         // Stop listening for incoming calls.
         mTelephonyManager.listen(mPhoneStateListener, 0);
         AlarmAlertWakeLock.releaseCpuLock();
+        mAlarmManager.cancel(pendingIntent);
     }
 
     @Override
@@ -217,11 +221,17 @@ public class AlarmKlaxon extends Service {
 
         /* Start the vibrator after everything is ok with the media player */
         if (alarm.vibrate) {
-            mVibrator.vibrate(sVibratePattern, 0);
+        	mVibrator.vibrate(sVibratePattern, 0); 
         } else {
             mVibrator.cancel();
         }
 
+        pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(Alarms.ALARM_SNOOZE_ACTION), 0);
+        long delay = 1000 * 30;     // 2∑÷÷”
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC,
+            System.currentTimeMillis() + delay,
+            CHECK_INTERVAL, pendingIntent);
+        
         enableKiller(alarm);
         mPlaying = true;
         mStartTime = System.currentTimeMillis();
@@ -239,6 +249,12 @@ public class AlarmKlaxon extends Service {
             player.setLooping(true);
             player.prepare();
             player.start();
+        }
+        if(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != 0){
+        	 player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+             player.setLooping(true);
+             player.prepare();
+             player.start();
         }
     }
 
@@ -270,7 +286,6 @@ public class AlarmKlaxon extends Service {
                 mMediaPlayer.release();
                 mMediaPlayer = null;
             }
-
             // Stop vibrator
             mVibrator.cancel();
         }

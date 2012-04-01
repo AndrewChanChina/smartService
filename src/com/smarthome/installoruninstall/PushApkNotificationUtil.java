@@ -26,7 +26,7 @@ public class PushApkNotificationUtil {
 		regIntent.putExtra(PushServiceUtil.PUSH_DEVELOPER, "admin");
 		regIntent.putExtra(PushServiceUtil.PUSH_NAME_KEY,
 				"tmticb0yfyRl4O71gXTxpbiTC92DvWFf");
-		regIntent.putExtra(PushServiceUtil.PUSH_CATEGORY, "com.smarthome.deskclock");
+		regIntent.putExtra(PushServiceUtil.PUSH_CATEGORY, "com.smarthome.installoruninstall");
 
 		// TODO should I stop service
 		context.startService(regIntent);

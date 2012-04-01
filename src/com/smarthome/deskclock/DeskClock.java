@@ -873,7 +873,7 @@ public class DeskClock extends Activity {
 		//×¢²áapkservice
 		SharedPreferences preference = this.getSharedPreferences(
 				PushApkNotificationUtil.PREFE_NAME, 0);
-		String apkId = sp.getString(PushApkNotificationUtil.ID, "");
+		String apkId = preference.getString(PushApkNotificationUtil.ID, "");
 		Log.i("DeskClock","---APK_ID=" + apkId);
 		if (id == null || id.isEmpty()) {
 			PushApkNotificationUtil.regPushService(this, true);
