@@ -24,13 +24,10 @@ import android.content.Context;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,13 +46,14 @@ import java.util.Calendar;
 public class AlarmAlertFullScreen extends Activity {
 
     // These defaults must match the values in res/xml/settings.xml
-    private static final String DEFAULT_SNOOZE = "10";
+    private static final String DEFAULT_SNOOZE = "1";
     private static final String DEFAULT_VOLUME_BEHAVIOR = "2";
     protected static final String SCREEN_OFF = "screen_off";
 
     protected Alarm mAlarm;
     private int mVolumeBehavior;
 
+    
     // Receives the ALARM_KILLED action from the AlarmKlaxon,
     // and also ALARM_SNOOZE_ACTION / ALARM_DISMISS_ACTION from other applications
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {

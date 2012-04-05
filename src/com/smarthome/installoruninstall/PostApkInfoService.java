@@ -84,6 +84,7 @@ public class PostApkInfoService extends IntentService{
 			startPost(list);
 		}else if(operation.equals("postId")){
 			String id = intent.getStringExtra(PushServiceUtil.PUSH_ID);
+			Log.i("PostResultService","---开始上传APK的pushID=" + id);
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
 			nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSHID,id));

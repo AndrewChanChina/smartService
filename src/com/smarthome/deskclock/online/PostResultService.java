@@ -19,8 +19,8 @@ public class PostResultService extends IntentService {
 	public final static String LOG_TAG = "chenyz";
 	public final static String URL = "url";
 	public final static String DATA = "data";
-	private String ALARM_POST_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do";
-	private String AlARM_PUSHID_URL = "http://localhost:8080/pushcmsserver/hotel.do?opt=pushServiceInfo";
+	private String ALARM_POST_URL = "http://192.168.0.195:8080/pushcmsserver/clock_webservice.do";
+	private String AlARM_PUSHID_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=pushServiceInfo";
 	
 	public PostResultService() {
 		super("PostResultService");
@@ -51,6 +51,7 @@ public class PostResultService extends IntentService {
 			if(operation.equals("postId")){//上传pushId
 				String id = intent.getStringExtra(PushServiceUtil.PUSH_ID);
 				Log.i("PostResultService","---开始上传闹钟的pushID=" + id);
+				Log.i("PostResultService","---房间号---" + DeviceFun.getRoomNum(getContentResolver()));
 				List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 				nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(getContentResolver())));
 				nvps.add(new BasicNameValuePair(PushApkServiceUtil.PUSHID,id));
