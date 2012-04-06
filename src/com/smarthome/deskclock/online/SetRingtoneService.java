@@ -52,6 +52,7 @@ public class SetRingtoneService extends IntentService {
 								a.alert = Uri.parse(filePath);
 								Log.i("SetRingtoneService","---…Ë÷√µƒ¡Â…˘---" + a.alert.toString());
 								Alarms.setAlarm(this, a);
+								HttpPostDataUtil.postAlarmId(this, a);
 							}
 						}
 				     }

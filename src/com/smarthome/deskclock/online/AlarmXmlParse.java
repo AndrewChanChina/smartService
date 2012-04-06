@@ -108,7 +108,7 @@ public class AlarmXmlParse {
 			if(context != null){
 				inputStream = context.getResources().getAssets().open(mXmlPath);
 			}else{
-				inputStream = new ByteArrayInputStream(data.getBytes()); 
+				inputStream = new ByteArrayInputStream(data.getBytes("UTF-8")); 
 			}
 		} catch (IllegalStateException e) {
 			//e.printStackTrace();
@@ -170,6 +170,8 @@ public class AlarmXmlParse {
 						a.operation = node2.getTextContent();
 					}else if(Alarm.Columns.MUSIC.equals(node2.getNodeName())){
 						a.musicPath = node2.getTextContent();
+					}else if(Alarm.Columns.COMMITURL.equals(node2.getNodeName())){
+						a.commit_url = node2.getTextContent();
 					}					
 				}
 				alarms.add(a);

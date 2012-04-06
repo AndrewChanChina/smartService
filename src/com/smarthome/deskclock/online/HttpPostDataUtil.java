@@ -12,6 +12,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -28,6 +29,7 @@ import android.util.Log;
 
 import com.smarthome.deskclock.Alarm;
 import com.smarthome.deskclock.Alarms;
+import com.smarthome.installoruninstall.PushApkServiceUtil;
 import com.smarthome.until.GobalFinalData;
 import com.smarthome.until.XmlPreference;
 
@@ -78,18 +80,20 @@ public class HttpPostDataUtil {
 		for (Alarm a : la) {
 			switch (AlarmXmlParse.Operation.mapString(a.operation)) {
 			case AlarmXmlParse.Operation.ADD:
+				Alarms.addAlarm(context, a);
+				// 请求服务器端“添加”操作的地址
+				postAlarmId(context, a);
 				if (a.musicPath != null
 						&& !a.musicPath.isEmpty()
 						&& Environment.getExternalStorageState().equals(
 								Environment.MEDIA_MOUNTED)) {
 					downloadMusic(context, a.musicPath, a);
 				}
-				Alarms.addAlarm(context, a);
-				// 请求服务器端“添加”操作的地址
 				break;
 			case AlarmXmlParse.Operation.DELETE:
 				Alarms.deleteAlarm(context, a.id);
 				// 请求服务器端“删除”操作的地址
+				postAlarmId(context, a);
 				break;
 			case AlarmXmlParse.Operation.UPDATE:
 				if (a.musicPath != null
@@ -100,7 +104,7 @@ public class HttpPostDataUtil {
 				}
 				Alarms.setAlarm(context, a);
 				// 请求服务器端“修改”操作的地址
-
+				postAlarmId(context, a);
 				break;
 			}
 
@@ -193,4 +197,18 @@ public class HttpPostDataUtil {
 		}
 	}
 
+	static void postAlarmId(Context context,Alarm a){
+    	String url = a.commit_url.replace('*','&');
+    	String desUrl = url + "true&id=" + a.id;
+    	Log.i("HttpPostDataUtil","---提交alarm_id的地址---" + desUrl);
+    	List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair(PushApkServiceUtil.ROOMNUM,DeviceFun.getRoomNum(context.getContentResolver())));
+		try {
+			HttpPostDataUtil.httpPostData(desUrl, nvps);
+		} catch (MyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
 }

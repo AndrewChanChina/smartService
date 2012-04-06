@@ -28,4 +28,5 @@ public class PushApkServiceUtil {
     public static final String PUSHID = "pushid";
     public static final String PUSH_SERVICE_ID = "pushserviceid";
     
+    
 }

@@ -24,6 +24,7 @@ public class PostResultService extends IntentService {
 	
 	public PostResultService() {
 		super("PostResultService");
+		init();
 	}
 	
 	private void init(){
@@ -45,7 +46,6 @@ public class PostResultService extends IntentService {
 	
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		init();
 		String operation = intent.getStringExtra(PushServiceUtil.OPERATION);
 		if(operation!=null){
 			if(operation.equals("postId")){//ÉÏ´«pushId

@@ -98,6 +98,9 @@ public class PushServiceUtil{
     public static final String DEFAULTID_AUDIO = "AUDIO";
     public static final String DEFAULTID_STORY = "STORY";
     
+    //post alarm_id
+    public static final String ALARM_ID = "id";
+    
     
     // for preferences file
     public static final String SHARED_PREFERENCE_NAME = "client_preferences";

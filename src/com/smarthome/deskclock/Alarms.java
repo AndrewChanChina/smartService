@@ -31,9 +31,19 @@ import android.os.Parcel;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import com.smarthome.alarmclock.R;
+import com.smarthome.deskclock.online.DeviceFun;
+import com.smarthome.deskclock.online.HttpPostDataUtil;
+import com.smarthome.deskclock.online.MyException;
+import com.smarthome.deskclock.online.PushServiceUtil;
+import com.smarthome.installoruninstall.PushApkServiceUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.text.DateFormatSymbols;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * The Alarms provider supplies info about Alarm Clock settings
@@ -109,6 +119,7 @@ public class Alarms {
             clearSnoozeIfNeeded(context, timeInMillis);
         }
         setNextAlert(context);
+//        postAlarmId(context,alarm);
         return timeInMillis;
     }
 
@@ -127,6 +138,7 @@ public class Alarms {
         contentResolver.delete(uri, "", null);
 
         setNextAlert(context);
+//        postAlarmId(context,alarm);
     }
 
     /**
@@ -233,7 +245,7 @@ public class Alarms {
         }
 
         setNextAlert(context);
-
+//        postAlarmId(context,alarm);
         return timeInMillis;
     }
 
@@ -571,4 +583,6 @@ public class Alarms {
     static boolean get24HourMode(final Context context) {
         return android.text.format.DateFormat.is24HourFormat(context);
     }
+    
+    
 }

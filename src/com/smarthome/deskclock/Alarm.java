@@ -127,6 +127,7 @@ public final class Alarm implements Parcelable {
         public static final String OPERATION = "operation";
         
         public static final String MUSIC = "music";
+        public static final String COMMITURL = "commit_url";
 
         /**
          * The default sort order for this table
@@ -174,6 +175,7 @@ public final class Alarm implements Parcelable {
     public boolean    silent;
     public String     operation;
     public String     musicPath;
+    public String     commit_url;
 
     public Alarm(Cursor c) {
         id = c.getInt(Columns.ALARM_ID_INDEX);
